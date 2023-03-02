@@ -226,6 +226,7 @@
     <!-- plugins:js -->
 
     {{-- //datatables --}}
+    <script src="{{ asset('/assets/vendors/js/vendor.bundle.base.js') }}"></script>
     @stack('js')
 
 </body>
