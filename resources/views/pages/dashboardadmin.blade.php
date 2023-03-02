@@ -65,7 +65,6 @@
                     <table id="tb1" class="table">
                         <thead>
                             <tr>
-
                                 <th>Nama</th>
                                 <th>Pesanan</th>
                                 <th>Harga</th>
@@ -159,7 +158,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">
@@ -183,14 +182,13 @@
                             @endforeach
                         </tbody>
                     </table>
-
-                    {{-- @foreach ($datacount as $a)
-                        {{ $a }}
-                        <br>
-                    @endforeach --}}
                 </div>
             </div>
         </div>
+
+    </div>
+    <br>
+    <div class="row">
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
@@ -215,15 +213,31 @@
                             @endforeach
                         </tbody>
                     </table>
-
-                    {{-- @foreach ($datacount as $a)
-                        {{ $a }}
-                        <br>
-                    @endforeach --}}
                 </div>
             </div>
         </div>
     </div>
+    <br>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    Perhitungan Jumlah Makanan
+                    <button type="submit" onclick="copytext()">Click To Copy</button>
+                </div>
+                <textarea id="copytextdata" id="" cols="80" rows="10">
+@foreach ($datacountmakanan as $a)
+@if ($a['jumlah'] >= 1)
+{{ $a['jumlah'] }}   {{ $a['menu'] }}
+@endif
+@endforeach
+</textarea>
+            </div>
+        </div>
+    </div>
+    <br>
+
+
     <br>
 
 
@@ -250,9 +264,35 @@
         {{-- datatables --}}
 
 
+
         <script type="text/javascript" charset="utf8" src="{{ asset('assets/js/jquery.dataTables.js') }}"></script>
 
-        <script></script>
+        <script>
+            function copytext() {
+                // Get the text field
+                var copyText = document.getElementById("copytextdata");
+                console.log(copyText.innerHTML);
+
+                // Select the text field
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); // For mobile devices
+
+                // Copy the text inside the text field
+                navigator.clipboard.writeText(copyText.innerHTML).then(
+                    () => {
+                        /* clipboard successfully set */
+                        print("copyed");
+                    },
+                    () => {
+                        print("gagal copy");
+                        /* clipboard write failed */
+                    }
+                );
+
+                // Alert the copied text
+                alert("Copied the text: " + copyText.innerHTML);
+            }
+        </script>
         <script type="text/javascript">
             function confirm_delete() {
                 return confirm('are you sure?');

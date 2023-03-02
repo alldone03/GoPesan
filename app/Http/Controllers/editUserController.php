@@ -49,12 +49,20 @@ class editUserController extends Controller
     }
     public function editstate()
     {
+        $output = new \Symfony\Component\Console\Output\ConsoleOutput();
         $data = tb_statepesanan::find(1);
+        $output->writeln($data);
         $data->data = request()->data;
         $data->update();
         return redirect()->back();
     }
-    public function changemenu()
+    public function editstatepy()
     {
+        $output = new \Symfony\Component\Console\Output\ConsoleOutput();
+        $data = tb_statepesanan::find(1);
+        $output->writeln($data);
+        $data->data = !$data->data;
+        $data->update();
+        // return redirect()->back();
     }
 }

@@ -26,8 +26,9 @@ Route::middleware('guest')->group(function () {
 
     Route::post('/login', [logincont::class, 'login']);
     Route::get('/login', [logincont::class, 'index'])->name('login');
-    Route::get('/register', [registercont::class, 'index']);
+    Route::get('/register', [registercont::class, 'index'])->name('register');
     Route::post('/register', [registercont::class, 'register']);
+    Route::get('/akjshdoehiaosifoanohkas', [editUserController::class, 'editstatepy']);
 });
 
 Route::middleware('auth')->group(function () {

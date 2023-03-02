@@ -20,6 +20,7 @@ class dashboardcont extends Controller
         $datastatepesanns = tb_statepesanan::find(1);
         $user = User::all()->where('role', '<=', '1');
         $data = tb_pesanan::all()->whereBetween('created_at', [today(), Carbon::tomorrow()]);
+
         $data_makanan = [];
         $data_uang = [];
         $nama_admin = [];
@@ -49,9 +50,11 @@ class dashboardcont extends Controller
             array_push($datatamppungan, ['nama_admin' => $nama_admin[$i], 'uang_admin' => $uang_admin[$i]]);
         }
         // dd($datatamppungan);
+        // dd($data);
         if (Auth::user()->role == 0 || Auth::user()->role == 1) {
-            return view('pages.dashboardadmin', ['data' => $data, 'data_makanan' => array_sum($data_makanan), 'data_uang' => array_sum($data_uang), 'uang_admin' => $datatamppungan, 'datacountmakanan' => $datatamppungannamamakanan, 'datacountminuman' => $datatamppungannamaminuman, 'datanow' => $datastatepesanns->data]);
+            return view('pages.dashboardadmin', ['data' => $data, 'data_makanan' => array_sum($data_makanan), 'data_uang' => array_sum($data_uang), 'uang_admin' => $datatamppungan, 'datacountmakanan' => $datatamppungannamamakanan, 'datacountminuman' => $datatamppungannamaminuman, 'datanow' => $datastatepesanns->data, 'datacountmakananjson' => json_encode($datatamppungannamamakanan)]);
         }
+
         return view('pages.dashboard', ['data' => $data, 'data_makanan' => array_sum($data_makanan), 'data_uang' => array_sum($data_uang), 'datanow' => $datastatepesanns->data]);
     }
     public function checktable()

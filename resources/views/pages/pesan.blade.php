@@ -59,22 +59,6 @@
                                     </optgroup>
                                 </select>
                             </div>
-                            {{-- <div class="form-group">
-                            <label for="harga">Harga</label>
-                            <input type="text" class="form-control" name="harga" id="harga"
-                                placeholder="Penulisan Tidak Perlu Titik">
-                        </div>
-
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input type="radio" name="jenis" value="0" class="form-check-input"> Makanan <i
-                                    class="input-helper"></i></label>
-                        </div>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input type="radio" name="jenis" value="1" class="form-check-input"> Minuman <i
-                                    class="input-helper"></i></label>
-                        </div> --}}
 
 
                             <br>
@@ -83,44 +67,42 @@
                     </div>
                 </div>
             </div>
-
-            @if (Auth::user()->role == 0 || Auth::user()->role == 1)
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title">
-                                Kalo Menu belum ada Tambah Menu Disini
-                            </div>
-                            <form action="/tambahMenu" method="post">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="menu">Menu</label>
-                                    <input type="text" class="form-control" name="menu" id="menu"
-                                        placeholder="menu">
-                                </div>
-                                <div class="form-group">
-                                    <label for="harga">Harga</label>
-                                    <input type="text" class="form-control" name="harga" id="harga"
-                                        placeholder="harga">
-                                </div>
-
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" name="jenis" value="0" class="form-check-input">
-                                        Makanan <i class="input-helper"></i></label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" name="jenis" value="1" class="form-check-input">
-                                        Minuman <i class="input-helper"></i></label>
-                                </div>
-                                <br>
-                                <input type="submit" class="btn btn-primary me-2" value="submit">
-                            </form>
+        @endif
+        @if (Auth::user()->role == 0 || Auth::user()->role == 1)
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            Kalo Menu belum ada Tambah Menu Disini
                         </div>
+                        <form action="/tambahMenu" method="post">
+                            @csrf
+                            <div class="form-group">
+                                <label for="menu">Menu</label>
+                                <input type="text" class="form-control" name="menu" id="menu" placeholder="menu">
+                            </div>
+                            <div class="form-group">
+                                <label for="harga">Harga</label>
+                                <input type="text" class="form-control" name="harga" id="harga"
+                                    placeholder="harga">
+                            </div>
+
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" name="jenis" value="0" class="form-check-input">
+                                    Makanan <i class="input-helper"></i></label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="radio" name="jenis" value="1" class="form-check-input">
+                                    Minuman <i class="input-helper"></i></label>
+                            </div>
+                            <br>
+                            <input type="submit" class="btn btn-primary me-2" value="submit">
+                        </form>
                     </div>
                 </div>
-            @endif
+            </div>
         @endif
         <div class="col-md-4">
             <div class="card">
@@ -140,7 +122,6 @@
                                     <tr>
                                         <td>{{ $u->menu }}</td>
                                         <td>@currency($u->harga)</td>
-
                                     </tr>
                                 @endif
                             @endforeach
@@ -176,4 +157,15 @@
             </div>
         </div>
     </div>
+    @pushOnce('js')
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="{{ asset('/assets/js/jquery.priceformat.min.js') }}"></script>
+        <script>
+            $('#harga').priceFormat({
+                prefix: 'Rp',
+                centsLimit: 0,
+                thousandsSeparator: '.'
+            });
+        </script>
+    @endPushOnce
 @endsection

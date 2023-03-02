@@ -56,20 +56,7 @@
                 </div>
             </div>
         @endif
-        @if (Auth::user()->role == 0)
-            <div class="col-md-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-title">Change State</div>
 
-                        @foreach ($datamenu as $d)
-                            <button class="btn btn-success" type="button" onclick="" value="hello">
-                        @endforeach
-
-                    </div>
-                </div>
-            </div>
-        @endif
     </div>
     @pushOnce('js')
         <script src="{{ asset('/assets/vendors/js/vendor.bundle.base.js') }}"></script>

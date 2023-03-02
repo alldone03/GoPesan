@@ -40,6 +40,13 @@
                                         <label>Password</label>
                                         <input type="password" name="password" class="form-control p_input" required>
                                     </div>
+                                    <div class="form-group">
+                                        <p class="text-center">
+
+                                            <a href="{{ url('register') }}">if you don't have an account register click
+                                                here</a>
+                                        </p>
+                                    </div>
                                     <div class="text-center">
                                         <button type="submit"
                                             class="btn btn-primary btn-block enter-btn">Login</button>
