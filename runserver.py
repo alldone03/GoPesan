@@ -4,6 +4,12 @@ import socket
 import time
 import threading
 import requests
+import datetime
+
+
+def time_in_range(start, end, current):
+    """Returns whether current is in the range [start, end]"""
+    return start <= current <= end
 
 
 class runapp():
@@ -14,9 +20,7 @@ class runapp():
         print("Running ON: http://" +
               str(socket.gethostbyname(socket.gethostname()))+"/")
         # os.system("code .")
-
         pyperclip.copy(str(socket.gethostbyname(socket.gethostname())))
-
         dataip = socket.gethostbyname(socket.gethostname())
         os.system("php artisan serve --host "+dataip+" --port 80")
 
@@ -29,9 +33,21 @@ class runapp():
             except:
                 print("error")
 
-        os.system("start http://" +
-                  str(socket.gethostbyname(socket.gethostname()))+" /")
-        requests.get("http://"+self.dataip+"/akjshdoehiaosifoanohkas")
+        start = datetime.time(8, 0, 0)
+        end = datetime.time(10, 57, 0)
+        current = datetime.datetime.now().time()
+        flag = time_in_range(start, end, current)
+        requests.get("http://"+self.dataip +
+                     "/akjshdoehiaosifoanohkas/"+str("1" if time_in_range(start, end, current) else "0"))
+        while True:
+
+            current = datetime.datetime.now().time()
+            if flag != time_in_range(start, end, current):
+                flag = time_in_range(start, end, current)
+                requests.get("http://"+self.dataip +
+                             "/akjshdoehiaosifoanohkas/"+str("1" if time_in_range(start, end, current) else "0"))
+
+            time.sleep(0.5)
 
 
 if __name__ == "__main__":

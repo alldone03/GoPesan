@@ -56,12 +56,12 @@ class editUserController extends Controller
         $data->update();
         return redirect()->back();
     }
-    public function editstatepy()
+    public function editstatepy($id)
     {
         $output = new \Symfony\Component\Console\Output\ConsoleOutput();
         $data = tb_statepesanan::find(1);
         $output->writeln($data);
-        $data->data = !$data->data;
+        $data->data = $id;
         $data->update();
         // return redirect()->back();
     }
